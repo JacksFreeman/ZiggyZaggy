@@ -27,6 +27,7 @@ var buttonY = [200,250,300,350];
 var buttonWidth = [105,260,260,170];
 var buttonHeight = [40,40,40,40];
 
+
 //Dibujado de Imagenes
 bgImage.onload = function(){
 	context.drawImage(bgImage, 0 ,0);
@@ -133,8 +134,6 @@ function checkPos(mouseEvent){
 	starSize += starRotate;
 }
 
-
-
 // ESTRELLA
 var starX = [0,0];
 var starY = [0,0];
@@ -144,6 +143,4 @@ var starHeight = 46;
 var starVisible = false;
 var starSize = starWidth;
 var starRotate = 0;
-
-
 
