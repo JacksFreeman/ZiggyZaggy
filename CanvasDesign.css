@@ -1,55 +1,55 @@
 canvas {
-	border: 1px solid black;
+  border: 1px solid black;
 }
 
 img {
-	width: 50px;
- 	height: 50px;
-  	animation-name: spin;
-  	animation-duration: 5000ms;
-	animation-iteration-count: infinite;
-  	animation-timing-function: linear;
+  width: 50px;
+  height: 50px;
+  animation-name: spin;
+  animation-duration: 5000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 #star1 {
-	margin-left: -38%;
-	margin-bottom: 28%;
+  margin-left: -38%;
+  margin-bottom: 28%;
 }
 
 #star2 {
-	margin-left: 17%;
-	margin-bottom: 28%;
+  margin-left: 17%;
+  margin-bottom: 28%;
 }
 
 @keyframes spin {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .wrapper {
-	background-color: rgba(223, 198, 135, .3);
-	padding: 30px;
-	padding-bottom: 20px;
-	border: 2px solid #DB3069;
-	width: 30%;
-	margin-top: -25%;
-	margin-left: 5%;
-	position: fixed;
-	z-index: 10;
+  background-color: rgba(223, 198, 135, 0.3);
+  padding: 30px;
+  padding-bottom: 20px;
+  border: 2px solid #db3069;
+  width: 30%;
+  margin-top: -25%;
+  margin-left: 5%;
+  position: fixed;
+  z-index: 10;
 }
 
 label {
-	font-size: 20px;
-	font-family: arial;
-	font-weight: bold;
-	color: #5E5E5E;
-	margin-left: 15%;
-	margin-bottom: 50px;
-	float: left;
+  font-size: 20px;
+  font-family: arial;
+  font-weight: bold;
+  color: #5e5e5e;
+  margin-left: 15%;
+  margin-bottom: 50px;
+  float: left;
 }
 
 .switch {
@@ -61,15 +61,13 @@ label {
   float: left;
 }
 
-
 #switch-efectos {
   margin-left: 70%;
   margin-top: -16%;
   float: left;
-
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -83,8 +81,8 @@ label {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -95,16 +93,16 @@ label {
   left: 2px;
   bottom: 3px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
-  background-color: #DB3069;
+  background-color: #db3069;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider:before {
@@ -122,22 +120,50 @@ input:checked + .slider:before {
 }
 
 .div-buttons {
-	margin-top: -8%;
-	margin-left: 10%;
+  margin-top: -8%;
+  margin-left: 10%;
 }
 
-#saveBtn, #cancelBtn {
-    background-color: #DB3069;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    opacity: 0.8;
-    font-size: 16px;
-	padding: 10px 25px;
-    margin-left: 30px;
+#saveBtn,
+#cancelBtn {
+  background-color: #db3069;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  opacity: 0.8;
+  font-size: 16px;
+  padding: 10px 25px;
+  margin-left: 30px;
+}
+
+#returnBtn {
+  background-color: #db3069;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  opacity: 0.8;
+  font-size: 16px;
+  padding: 10px 25px;
+  margin-left: 125px;
 }
 
 #saveBtn:hover,
-#cancelBtn:hover{
-	opacity: 1;
+#cancelBtn:hover,
+#returnBtn:hover {
+  opacity: 1;
+}
+
+/* COLUMNAS */
+
+.column {
+  float: left;
+  width: 33.33%;
+  text-align: center;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
 }

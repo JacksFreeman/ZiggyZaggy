@@ -9,7 +9,7 @@ var settingsImage = new Image();
 
 bgImage.src = "Images/Fondo3.png";
 /* iconImage.src = "Images/iconoS.png"; */
-settingsImage.src = "Images/ConfiguracionS.png";
+settingsImage.src = "Images/HighScoreS.png";
 
 //Dibujado de imágenes
 bgImage.onload = function () {
