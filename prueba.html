@@ -1,0 +1,133 @@
+<html>
+
+<head>
+  <center>
+    <style>
+      body {
+        background-color: black;
+      }          
+      * {
+        padding: 0;
+        margin: 0;
+      }          
+      canvas {
+        background: #353d49;
+        display: block;
+        margin: 100px;
+      }          
+      #startBtn {
+        border: none;
+        background: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 1;
+        transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%);
+        -moz-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+      }          
+      #container {
+        display: inline-block;
+        position: relative;
+      }          
+      #myCanvas {
+        position: relative;
+      }
+    </style>
+</head>
+
+<body>
+
+  <div id="container">
+    <button type="button" id="startBtn" onclick="draw()"><img src="https://1.bp.blogspot.com/-fVAKH-3TLuo/W5onDDHje0I/AAAAAAAAB4I/q2ooE6GuzQkS80dtw1JILXjFWdfQ3IKkwCLcBGAs/s1600/breaoutplay.png">
+    </button>
+    <canvas id="myCanvas" width="600" height="550"></canvas>
+  </div>
+
+
+  <script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    var ballRadius = 9;
+    var x = canvas.width - Math.floor(Math.random() * 600)
+    var y = canvas.height - 30;
+    var dx = 5;
+    var dy = -4;
+    var paddleHeight = 10;
+    var paddleWidth = 75;
+    var paddleX = (canvas.width - paddleWidth) / 2;
+    var rightPressed = false;
+    var leftPressed = false;
+    var brickRowCount = 7;
+    var brickColumnCount = 5;
+    var brickWidth = 75;
+    var brickHeight = 20;
+    var brickPadding = 4;
+    var brickOffsetTop = 30;
+    var brickOffsetLeft = 30;
+    var score = 0;
+    var lives = 3;
+    var background = new Image();
+    background.src = "https://1.bp.blogspot.com/-hs2fckXJBkE/W5obuBm9kII/AAAAAAAAB38/C89KFBJCIlEwfl-g8d-T1Cu4cHFWjYI2QCLcBGAs/s1600/breakoutbg.png";
+    var play = new Image();
+    play.src = "https://1.bp.blogspot.com/-fVAKH-3TLuo/W5onDDHje0I/AAAAAAAAB4I/q2ooE6GuzQkS80dtw1JILXjFWdfQ3IKkwCLcBGAs/s1600/breaoutplay.png";
+
+    var startBtn = document.getElementById('startBtn');
+
+    //game
+    function drawCanvas() {
+      ctx.beginPath();
+      ctx.drawImage(background, 0, 0);
+      ctx.fill();
+      ctx.closePath();
+
+    }
+
+    function drawPlay() {
+      ctx.beginPath();
+      ctx.drawImage(play, 250, 250);
+      ctx.fill();
+      clickable;
+      ctx.closePath();
+
+    }
+
+    function newBrick() {
+      return {
+        x: 0,
+        y: 0,
+        status: 1
+      };
+
+    }
+
+    var bricks = [];
+    for (var c = 0; c < brickColumnCount; c++) {
+      bricks[c] = [];
+      for (var r = 0; r < brickRowCount; r++) {
+        bricks[c].unshift(newBrick());
+      }
+    }
+
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+    document.addEventListener("mousemove", mouseMoveHandler, false);
+
+    function keyDownHandler(e) {
+      if (e.keyCode == 39) {
+        rightPressed = true;
+      } else if (e.keyCode == 37) {
+        leftPressed = true;
+      }
+    }
+
+    function keyUpHandler(e) {
+      if (e.keyCode == 39) {
+        rightPressed = false;
+      } else if (e.keyCode == 37) {
+        leftPressed = false;
+      }
+    }
+
+    function mouseMoveHa
