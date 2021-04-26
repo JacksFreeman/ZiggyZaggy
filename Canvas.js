@@ -219,7 +219,7 @@ function index() {
     canvas.addEventListener("mousemove", checkPos);
     canvas.addEventListener("mouseup", checkClick);
 
-    location.href = "index.html";
+    location.href = "Solo.html";
   }
 }
 
@@ -234,7 +234,7 @@ function instrucciones() {
     canvas.addEventListener("mousemove", checkPos);
     canvas.addEventListener("mouseup", checkClick);
 
-    location.href = "index.html";
+    location.href = "Multiplayer.html";
   }
 }
 
