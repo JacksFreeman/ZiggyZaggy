@@ -20,6 +20,7 @@ var height = canvas.height;
 var bgImage = new Image();
 var logoImage = new Image();
 var playImage = new Image();
+var MultiImage = new Image();
 var instrucImage = new Image();
 var settingsImage = new Image();
 var creditsImage = new Image();
@@ -28,15 +29,16 @@ var iconImage = new Image();
 //Carga de archivos
 bgImage.src = "Images/Fondo3.png";
 logoImage.src = "Images/LogoS.png";
-playImage.src = "Images/JugarS.png";
+playImage.src = "Images/SoloS.png";
+MultiImage.src = "Images/MultijugadorS.png";
 instrucImage.src = "Images/InstruccionesS.png";
 settingsImage.src = "Images/ConfiguracionS.png";
-creditsImage.src = "Images/puntuacionesS.png";
+creditsImage.src = "Images/HighScoreS.png";
 iconImage.src = "Images/iconoS.png";
 
 //Arreglos para el mouse
-var buttonX = [300, 240, 235, 280];
-var buttonY = [200, 250, 300, 350];
+var buttonX = [300, 240, 245, 250, 255];
+var buttonY = [200, 250, 300, 350, 400];
 var buttonWidth = [105, 260, 260, 170];
 var buttonHeight = [40, 40, 40, 40];
 
@@ -51,13 +53,16 @@ playImage.onload = function () {
   context.drawImage(playImage, buttonX[0], buttonY[0]);
 };
 instrucImage.onload = function () {
-  context.drawImage(instrucImage, buttonX[1], buttonY[1]);
+  context.drawImage(MultiImage, buttonX[1], buttonY[1]);
+}
+instrucImage.onload = function () {
+  context.drawImage(instrucImage, buttonX[2], buttonY[2]);
 };
 settingsImage.onload = function () {
-  context.drawImage(settingsImage, buttonX[2], buttonY[2]);
+  context.drawImage(settingsImage, buttonX[3], buttonY[3]);
 };
 creditsImage.onload = function () {
-  context.drawImage(creditsImage, buttonX[3], buttonY[3]);
+  context.drawImage(creditsImage, buttonX[4], buttonY[4]);
 };
 
 //TIMER
@@ -91,9 +96,10 @@ function draw() {
   context.drawImage(bgImage, 0, backgroundY);
   context.drawImage(logoImage, 170, 10);
   context.drawImage(playImage, buttonX[0], buttonY[0]);
-  context.drawImage(instrucImage, buttonX[1], buttonY[1]);
-  context.drawImage(settingsImage, buttonX[2], buttonY[2]);
-  context.drawImage(creditsImage, buttonX[3], buttonY[3]);
+  context.drawImage(MultiImage, buttonX[1], buttonY[1]);
+  context.drawImage(instrucImage, buttonX[2], buttonY[2]);
+  context.drawImage(settingsImage, buttonX[3], buttonY[3]);
+  context.drawImage(creditsImage, buttonX[4], buttonY[4]);
   if (starVisible == true) {
     context.drawImage(
       iconImage,
