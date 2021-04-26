@@ -31,7 +31,7 @@ logoImage.src = "Images/LogoS.png";
 playImage.src = "Images/JugarS.png";
 instrucImage.src = "Images/InstruccionesS.png";
 settingsImage.src = "Images/ConfiguracionS.png";
-creditsImage.src = "Images/CreditosS.png";
+creditsImage.src = "Images/puntuacionesS.png";
 iconImage.src = "Images/iconoS.png";
 
 //Arreglos para el mouse
