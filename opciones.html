@@ -6,7 +6,7 @@
   </head>
 
   <body>
-    <canvas id="myCanvas" width="720" height="480"> </canvas>
+    <canvas id="myCanvas"> </canvas>
     <script type="text/javascript" src="opciones.js"></script>
 
     <!-- ESTRELLAS -->
@@ -21,7 +21,7 @@
         <span class="slider round"></span>
       </label>
       <br />
-      <label>Efectos de Sonido</label>
+      <label class="efectosSonido">Efectos de Sonido</label>
       <label id="switch-efectos" class="switch">
         <input type="checkbox" checked />
         <span class="slider round"></span>
@@ -30,7 +30,9 @@
 
     <div class="div-buttons">
       <button type="button" id="saveBtn">Guardar cambios</button>
-      <button type="button" id="cancelBtn">Cancelar</button>
+      <a href="Index.html">
+        <button type="button" id="cancelBtn">Cancelar</button>
+      </a>
     </div>
   </body>
 </html>

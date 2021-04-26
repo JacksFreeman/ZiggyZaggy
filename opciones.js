@@ -1,7 +1,20 @@
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
-var width = canvas.getAttribute("width");
-var height = canvas.getAttribute("height");
+/*var width = canvas.getAttribute("width");
+var height = canvas.getAttribute("height");*/
+
+(function() {
+  window.addEventListener('resize', resizeCanvas, false);
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+})();
+
+var width = canvas.width;
+var height = canvas.height;
 
 var bgImage = new Image();
 /* var iconImage = new Image(); */
