@@ -1,7 +1,20 @@
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
-var width = canvas.getAttribute("width");
-var height = canvas.getAttribute("height");
+/*var width = canvas.getAttribute("width");
+var height = canvas.getAttribute("height");*/
+
+(function() {
+  window.addEventListener('resize', resizeCanvas, false);
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+})();
+
+var width = canvas.width;
+var height = canvas.height;
 
 //Instancia de imagenes
 var bgImage = new Image();
@@ -150,3 +163,44 @@ var starHeight = 46;
 var starVisible = false;
 var starSize = starWidth;
 var starRotate = 0;
+
+//CLICKS
+var fadeId = 0;
+canvas.addEventListener("mouseup", checkClick);
+
+var time = 0.0;
+var button1 = 0;
+
+function checkClick(mouseEvent){
+  for(i = 0; i < buttonX.length; i++){
+      if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i]){
+          if(mouseY > buttonY[i] && mouseY < buttonY[i] + buttonHeight[i]){
+            fadeId = setInterval("fadeOut()", 1000/frames);
+            clearInterval(timerId);
+            canvas.removeEventListener("mousemove", checkPos);
+            canvas.removeEventListener("mouseup", checkClick);
+          }
+      }
+  }
+}
+
+function fadeOut(){
+  context.fillStyle = "rgba(0,0,0, 0.2)";
+  context.fillRect (0, 0, width, height);
+  time += 0.1;
+  if(time >= 2){
+      clearInterval(fadeId);
+      time = 0;
+      timerId = setInterval("update()", 1000/frames);
+      canvas.addEventListener("mousemove", checkPos);
+      canvas.addEventListener("mouseup", checkClick);
+
+      
+      location.href = 'opciones.html';
+    }
+  
+    
+}
+
+
+
