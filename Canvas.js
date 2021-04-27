@@ -39,8 +39,8 @@ iconImage.src = "Images/iconoS.png";
 //Arreglos para el mouse
 var buttonX = [300, 240, 245, 250, 255];
 var buttonY = [200, 250, 300, 350, 400];
-var buttonWidth = [105, 260, 260, 170];
-var buttonHeight = [40, 40, 40, 40];
+var buttonWidth = [105, 260, 260, 170, 170];
+var buttonHeight = [40, 40, 40, 40, 40];
 
 //Dibujado de Imagenes
 bgImage.onload = function () {
@@ -187,18 +187,24 @@ function checkClick(mouseEvent) {
         canvas.removeEventListener("mouseup", checkClick);
       }
       if (mouseY > buttonY[1] && mouseY < buttonY[1] + buttonHeight[1]) {
-        fadeId = setInterval("instrucciones()", 1000 / frames);
+        fadeId = setInterval("multiplayer()", 1000 / frames);
         clearInterval(timerId);
         canvas.removeEventListener("mousemove", checkPos);
         canvas.removeEventListener("mouseup", checkClick);
       }
       if (mouseY > buttonY[2] && mouseY < buttonY[2] + buttonHeight[2]) {
-        fadeId = setInterval("configuracion()", 1000 / frames);
+        fadeId = setInterval("instrucciones()", 1000 / frames);
         clearInterval(timerId);
         canvas.removeEventListener("mousemove", checkPos);
         canvas.removeEventListener("mouseup", checkClick);
       }
       if (mouseY > buttonY[3] && mouseY < buttonY[3] + buttonHeight[3]) {
+        fadeId = setInterval("configuracion()", 1000 / frames);
+        clearInterval(timerId);
+        canvas.removeEventListener("mousemove", checkPos);
+        canvas.removeEventListener("mouseup", checkClick);
+      }
+      if (mouseY > buttonY[4] && mouseY < buttonY[4] + buttonHeight[4]) {
         fadeId = setInterval("score()", 1000 / frames);
         clearInterval(timerId);
         canvas.removeEventListener("mousemove", checkPos);
@@ -223,7 +229,7 @@ function index() {
   }
 }
 
-function instrucciones() {
+function multiplayer() {
   context.fillStyle = "rgba(0,0,0, 0.2)";
   context.fillRect(0, 0, width, height);
   time += 0.1;
@@ -235,6 +241,21 @@ function instrucciones() {
     canvas.addEventListener("mouseup", checkClick);
 
     location.href = "Multiplayer.html";
+  }
+}
+
+function instrucciones() {
+  context.fillStyle = "rgba(0,0,0, 0.2)";
+  context.fillRect(0, 0, width, height);
+  time += 0.1;
+  if (time >= 2) {
+    clearInterval(fadeId);
+    time = 0;
+    timerId = setInterval("update()", 1000 / frames);
+    canvas.addEventListener("mousemove", checkPos);
+    canvas.addEventListener("mouseup", checkClick);
+
+    location.href = "instrucciones.html";
   }
 }
 
