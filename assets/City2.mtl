@@ -1,0 +1,228 @@
+newmtl AxeSG
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 18.00
+newmtl Bow_6SG
+illum 4
+Kd 0.00 0.32 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Bow_8SG
+illum 4
+Kd 0.02 0.02 0.48
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Bow_10SG
+illum 4
+Kd 0.40 0.00 0.30
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Chrimah_Lights1SG
+illum 4
+Kd 0.00 0.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Chrimah_Lights1SG1
+illum 4
+Kd 1.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Chrimah_LightsSG
+illum 4
+Kd 1.00 1.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Chrimah_LightsSG1
+illum 4
+Kd 0.15 0.15 0.15
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 18.00
+newmtl Chrimah_LightsSG2
+illum 4
+Kd 0.00 0.00 1.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Chrimah_LightsSG3
+illum 4
+Kd 0.00 1.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Chrimah_LightsSG4
+illum 4
+Kd 0.00 1.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Chrimah_LightsSG5
+illum 4
+Kd 1.00 0.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Chrimah_LightsSG6
+illum 4
+Kd 1.00 1.00 0.00
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Chrimah_LightsSG7
+illum 4
+Kd 0.03 0.03 0.03
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Chrimas_StarSG
+illum 4
+Kd 1.00 1.00 0.00
+Ka 1.00 1.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl House_1SG
+illum 4
+Kd 0.44 0.28 0.12
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl House_1SG1
+illum 4
+Kd 0.32 0.05 0.05
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl House_1SG2
+illum 4
+Kd 1.00 0.46 0.00
+Ka 1.00 0.46 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl House_1SG3
+illum 4
+Kd 0.43 0.05 0.05
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl House_1SG4
+illum 4
+Kd 0.52 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.24 0.24 0.24
+Ns 18.00
+newmtl House_5SG
+illum 4
+Kd 0.17 0.17 0.17
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Main_Chrimah_TreeSG
+illum 4
+Kd 0.00 0.20 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Main_Chrimah_TreeSG1
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Main_Chrimah_TreeSG2
+illum 4
+Kd 0.12 0.08 0.03
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Present_6SG
+illum 4
+Kd 0.46 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Present_6SG1
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Rock2SG
+illum 4
+Kd 0.25 0.25 0.25
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Smoke1SG
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl Smoke_Group_1SG
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl StarSG
+illum 4
+Kd 1.00 0.82 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 18.00
+newmtl TinselSG
+illum 4
+Kd 0.86 0.63 0.02
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 4.31
+newmtl polySurface176SG
+illum 4
+Kd 1.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl polySurface176SG1
+illum 4
+Kd 1.00 0.82 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 18.00
+newmtl polySurface177SG
+illum 4
+Kd 0.00 0.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl polySurface178SG
+illum 4
+Kd 0.00 1.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl polySurface179SG
+illum 4
+Kd 1.00 0.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00

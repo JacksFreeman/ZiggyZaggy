@@ -20,8 +20,12 @@
 	var ancla;
 	var ancla2;
 
-	var isWorldReady = [ false, false ];
+
+
+	var isWorldReady = [ false, false, false, false, false ];
 	$(document).ready(function() {
+
+		
 
 		rayCaster = new THREE.Raycaster();
 
@@ -83,6 +87,104 @@
 			isWorldReady[0] = true;
 		});
 
+		loadOBJWithMTL("assets/", "camino2.obj", "camino2.mtl", (object) => {
+			//object.scale.set(2.5,2.5,2.5);
+			object.position.z = -1585;
+			object.position.x = 18;
+			object.position.y = 0;
+			object.rotation.y = THREE.Math.degToRad(45);
+
+
+
+			object.name = "camino2";
+
+			scene.add(object);
+
+			objetosConColision.push(object);
+
+		});
+
+		loadOBJWithMTL("assets/", "camino3.obj", "camino3.mtl", (object) => {
+			//object.scale.set(2.5,2.5,2.5);
+			object.position.z = -800;
+			object.position.x = 18;
+			object.position.y = 0;
+			object.rotation.y = THREE.Math.degToRad(45);
+
+
+
+			object.name = "camino2";
+
+			scene.add(object);
+
+			objetosConColision.push(object);
+
+		});
+
+
+		loadOBJWithMTL("assets/", "City2.obj", "City2.mtl", (object) => {
+			object.scale.set(12,12,12);
+			object.position.z = -1250;
+			object.position.x = -8;
+			object.position.y = -120;
+
+	
+
+
+
+			object.name = "city1";
+
+			scene.add(object);
+
+			isWorldReady[2] = true;
+
+		
+
+
+		});
+
+		loadOBJWithMTL("assets/", "house.obj", "house.mtl", (object) => {
+			object.scale.set(20,20,20);
+			object.position.z = -370;
+			object.position.x = -8;
+			object.position.y = -220;
+			object.rotation.y = THREE.Math.degToRad(-45);
+		
+
+
+
+			object.name = "city2";
+
+			scene.add(object);
+
+			isWorldReady[3] = true;
+
+		
+
+
+		});
+
+		loadOBJWithMTL("assets/", "kameri.obj", "kameri.mtl", (object) => {
+			object.scale.set(7,7,7);
+			object.position.z = -2200;
+			object.position.x = -8;
+			object.position.y = -300;
+			object.rotation.y = THREE.Math.degToRad(-45);
+		
+
+
+
+			object.name = "city2";
+
+			scene.add(object);
+
+			isWorldReady[4] = true;
+
+		
+
+
+		});
+
 
 
 		render();
@@ -121,12 +223,32 @@
 	var stop = false;
 	forwardz = -10;
 	forwardy = -20;
+	var gameover = false;
+	var points = 0;
+	var final = false;
 
 	function render() {
+		
 		requestAnimationFrame(render);
-		deltaTime = clock.getDelta();
+		
 
 		lancha = scene.getObjectByName("lancha", true);	
+
+		if(gameover == true && final == false){
+			var go = document.getElementById("gameover");
+			var titulo = document.createElement('h1');
+			var titletxt = document.createTextNode('GAME OVER');
+			var puntuacion = document.createElement('h2');
+			var titletxt2 = document.createTextNode('Puntuacion: '+ (points/10));
+	
+
+			go.appendChild(titulo)
+			titulo.appendChild(titletxt);
+			go.appendChild(puntuacion);
+			puntuacion.appendChild(titletxt2);
+
+			final = true;
+		}
 
 		
 		if (keys["A"]) {
@@ -138,13 +260,17 @@
 		}
 
 
-		if (isWorldReady[0] && isWorldReady[1]) {
+		
 			
 
 			/*camera.translateX(forward * deltaTime);
 			camera.translateZ(forwardz * deltaTime);*/
 
-		
+		if (isWorldReady[0] && isWorldReady[1] && isWorldReady[2] && isWorldReady[3] && gameover == false && isWorldReady[4]) {
+			deltaTime = clock.getDelta();
+
+			points++;
+
 
 			
 
@@ -172,6 +298,10 @@
 						lancha.translateY(forwardy * deltaTime);
 						//lancha.translateY(forwardy * deltaTime);
 					}
+
+					if(lancha.position.y <= -20){
+						gameover = true;
+					}
 			}
 		}
 		
@@ -183,7 +313,7 @@
 		var visibleSize = { width: window.innerWidth, height: window.innerHeight};
 		clock = new THREE.Clock();		
 		scene = new THREE.Scene();
-		camera = new THREE.PerspectiveCamera(75, visibleSize.width / visibleSize.height, 0.1, 100);
+		camera = new THREE.PerspectiveCamera(75, visibleSize.width / visibleSize.height, 0.1, 600);
 		camera.position.z = 30;
 		camera.position.y = 30;
 
@@ -220,7 +350,13 @@
 
 <body>
 
+
+	<div id="gameover"></div>
+
+	<audio src="assets/fondo.mp3" type="audio/mpeg" id="musica" autoplay="autoplay"></audio>
 	<div id="scene-section"></div>
+	
+
 	
 
 </body>

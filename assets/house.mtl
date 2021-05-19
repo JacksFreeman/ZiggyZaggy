@@ -1,0 +1,104 @@
+newmtl casa:CESPED
+illum 4
+Kd 0.17 0.45 0.09
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.38 0.38 0.38
+Ns 152.60
+newmtl casa:LAMPARA
+illum 4
+Kd 0.06 0.07 0.20
+Ka 0.80 0.80 0.80
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.50 0.50 0.50
+Ns 306.99
+newmtl casa:Material
+illum 4
+Kd 0.01 0.00 0.07
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.50 0.50 0.50
+Ns 900.00
+newmtl casa:Material_003
+illum 4
+Kd 0.07 0.07 0.13
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.50 0.50 0.50
+Ns 225.00
+newmtl casa:ROCA
+illum 4
+Kd 0.28 0.32 0.53
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.50 0.50 0.50
+Ns 225.00
+newmtl casa:SUB
+illum 4
+Kd 0.06 0.01 0.02
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.50 0.50 0.50
+Ns 225.00
+newmtl casa:VIDRIO
+illum 4
+Kd 0.80 0.80 0.80
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+Ns 506.25
+newmtl casa:agua
+illum 4
+Kd 0.00 0.06 0.77
+Ka 0.15 0.15 0.15
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.20 0.20 0.20
+Ns 900.00
+newmtl casa:madera
+illum 4
+Kd 0.69 0.02 0.01
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.63 0.63 0.63
+Ns 3.14
+newmtl casa:metal
+illum 4
+Kd 0.80 0.43 0.08
+Ka 0.94 0.94 0.94
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.50 0.50 0.50
+Ns 443.12
+newmtl casa:pared
+illum 4
+Kd 1.00 0.41 0.17
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.50 0.50 0.50
+Ns 225.00
+newmtl casa:teja1
+illum 4
+Kd 0.00 0.10 0.76
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.50 0.50 0.50
+Ns 225.00
+newmtl casa:teja2
+illum 4
+Kd 0.00 0.07 0.48
+Ka 0.17 0.17 0.17
+Tf 1.00 1.00 1.00
+Ni 1.45
+Ks 0.50 0.50 0.50
+Ns 56.25
