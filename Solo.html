@@ -2,6 +2,8 @@
 <head>
 	
 	<title>2.3 Colisiones</title>
+    <link rel="stylesheet" href="CanvasDesign.css" />
+
 	<script type="text/javascript" src="js/libs/jquery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/libs/three/three.js"></script>
 	<script type="text/javascript" src="js/libs/three/MTLLoader.js"></script>
@@ -128,6 +130,47 @@
 
 		lancha = scene.getObjectByName("lancha", true);	
 
+<<<<<<< Updated upstream
+=======
+		if(gameover == true && final == false){
+			var modal = document.getElementById("MyModal");
+			var span = document.getElementsByClassName("close")[0];
+
+			function openModal(){
+				modal.style.display = "block";
+			}
+
+			openModal();
+
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
+
+			/*window.onclick = function(event) {
+				if(event.target == modal){
+					modal.style.display = "none";
+				}
+			}*/
+
+			var go = document.getElementById("gameover");
+			var titulo = document.createElement('h1');
+			//var titletxt = document.createTextNode('GAME OVER');
+			var puntuacion = document.createElement('h2');
+			var titletxt2 = document.createTextNode('Puntuacion: '+ (points/10));
+	
+
+			go.appendChild(titulo)
+			// titulo.appendChild(titletxt);
+			go.appendChild(puntuacion);
+			puntuacion.appendChild(titletxt2);
+
+			final = true;
+
+			// ventanita modal 
+
+		}
+
+>>>>>>> Stashed changes
 		
 		if (keys["A"]) {
 			forward = -10;
@@ -220,8 +263,58 @@
 
 <body>
 
+<<<<<<< Updated upstream
 	<div id="scene-section"></div>
 	
+=======
+
+
+	
+
+	<audio src="assets/fondo.mp3" type="audio/mpeg" id="musica" autoplay="autoplay"></audio>
+	<div id="scene-section"></div>
+	
+	<!-- ventana -->
+	<div id="MyModal" class="modal">
+		<!-- contenido -->
+		<div class="modal-content">
+			<span class="close">&times;</span>
+
+			<div class="modal-body">
+				<div class="modal-header">
+					<div class="column-header">
+						<img class="estrella" src="Images/icono.png">
+					</div>
+					<div class="column-header">
+						<img id="modal-header" src="Images/GameOver.png">
+					</div>
+					<div class="column-header">
+						<img class="estrella" src="Images/icono.png">
+					</div>
+				</div>
+				<br><br><br><br>
+				<div id="gameover"></div>
+				<!-- form para poner tu nombresito -->
+				<form id="modal-form">
+					<label for="fuser">Usuario:</label>
+					<input type="text" name="fuser" id="fuser">
+					<br>
+					<input type="submit" id="fbutton" name="fbutton" value="Enviar puntuacion">
+				</form>
+
+				<div class="modal-footer">
+					<div class="column">
+						<button id="regresarBtn">Volver al menu</button>
+					</div>
+					<div class="column">
+						<button id="facebookBtn">Compartir en Facebook</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+>>>>>>> Stashed changes
 
 </body>
 </html>
