@@ -2,6 +2,7 @@
   <head>
     <title>2.3 Colisiones</title>
     <link rel="stylesheet" href="CanvasDesign.css" />
+
     <script
       type="text/javascript"
       src="js/libs/jquery/jquery-2.1.4.min.js"
@@ -64,75 +65,6 @@
           isWorldReady[0] = true;
         });
 
-        loadOBJWithMTL("assets/", "camino2.obj", "camino2.mtl", (object) => {
-          //object.scale.set(2.5,2.5,2.5);
-          object.position.z = -1585;
-          object.position.x = 18;
-          object.position.y = 0;
-          object.rotation.y = THREE.Math.degToRad(45);
-
-          object.name = "camino2";
-
-          scene.add(object);
-
-          objetosConColision.push(object);
-        });
-
-        loadOBJWithMTL("assets/", "camino3.obj", "camino3.mtl", (object) => {
-          //object.scale.set(2.5,2.5,2.5);
-          object.position.z = -800;
-          object.position.x = 18;
-          object.position.y = 0;
-          object.rotation.y = THREE.Math.degToRad(45);
-
-          object.name = "camino2";
-
-          scene.add(object);
-
-          objetosConColision.push(object);
-        });
-
-        loadOBJWithMTL("assets/", "City2.obj", "City2.mtl", (object) => {
-          object.scale.set(12, 12, 12);
-          object.position.z = -1250;
-          object.position.x = -8;
-          object.position.y = -120;
-
-          object.name = "city1";
-
-          scene.add(object);
-
-          isWorldReady[2] = true;
-        });
-
-        loadOBJWithMTL("assets/", "house.obj", "house.mtl", (object) => {
-          object.scale.set(20, 20, 20);
-          object.position.z = -370;
-          object.position.x = -8;
-          object.position.y = -220;
-          object.rotation.y = THREE.Math.degToRad(-45);
-
-          object.name = "city2";
-
-          scene.add(object);
-
-          isWorldReady[3] = true;
-        });
-
-        loadOBJWithMTL("assets/", "kameri.obj", "kameri.mtl", (object) => {
-          object.scale.set(7, 7, 7);
-          object.position.z = -2200;
-          object.position.x = -8;
-          object.position.y = -300;
-          object.rotation.y = THREE.Math.degToRad(-45);
-
-          object.name = "city2";
-
-          scene.add(object);
-
-          isWorldReady[4] = true;
-        });
-
         render();
 
         document.addEventListener("keydown", onKeyDown);
@@ -171,6 +103,7 @@
 
       function render() {
         requestAnimationFrame(render);
+        deltaTime = clock.getDelta();
 
         lancha = scene.getObjectByName("lancha", true);
 
@@ -216,20 +149,9 @@
           forward = 10;
         }
 
-        /*camera.translateX(forward * deltaTime);
+        if (isWorldReady[0] && isWorldReady[1]) {
+          /*camera.translateX(forward * deltaTime);
 			camera.translateZ(forwardz * deltaTime);*/
-
-        if (
-          isWorldReady[0] &&
-          isWorldReady[1] &&
-          isWorldReady[2] &&
-          isWorldReady[3] &&
-          gameover == false &&
-          isWorldReady[4]
-        ) {
-          deltaTime = clock.getDelta();
-
-          points++;
 
           for (var i = 0; i < ancla.misRayos.length; i++) {
             var rayo = ancla.misRayos[i];
@@ -252,10 +174,6 @@
               lancha.translateY(forwardy * deltaTime);
               //lancha.translateY(forwardy * deltaTime);
             }
-
-            if (lancha.position.y <= -20) {
-              gameover = true;
-            }
           }
         }
 
@@ -273,7 +191,7 @@
           75,
           visibleSize.width / visibleSize.height,
           0.1,
-          600
+          100
         );
         camera.position.z = 30;
         camera.position.y = 30;
@@ -304,7 +222,7 @@
 
         var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
         grid.position.y = -1;
-        // scene.add(grid);
+        scene.add(grid);
 
         $("#scene-section").append(renderer.domElement);
       }
