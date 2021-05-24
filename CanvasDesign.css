@@ -1,9 +1,10 @@
-html, body {
-  width:  100%;
+html,
+body {
+  width: 100%;
   height: 100%;
   margin: 0px;
   border: 0;
-  overflow: hidden; 
+  overflow: hidden;
   display: block;
 }
 
@@ -12,7 +13,7 @@ canvas {
   position: absolute;
 }
 
-img {
+.estrella {
   width: 50px;
   height: 50px;
   animation-name: spin;
@@ -62,11 +63,11 @@ label {
   float: left;
 }
 
-.instrucciones{
+.instrucciones {
   margin-right: 20%;
 }
 
-.efectosSonido{
+.efectosSonido {
   padding-right: 30%;
 }
 
@@ -167,7 +168,7 @@ input:checked + .slider:before {
 
 #saveBtn:hover,
 #cancelBtn:hover,
-#returnBtn:hover {
+#returnBtn:hover #fbutton:hover {
   opacity: 1;
 }
 
@@ -179,9 +180,169 @@ input:checked + .slider:before {
   text-align: center;
 }
 
+.column-header {
+  float: left;
+  text-align: center;
+}
+
 /* Clear floats after the columns */
 .row:after {
   content: "";
   display: table;
   clear: both;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  padding-top: 100px;
+  margin-left: auto;
+  margin-left: auto;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fcf5be;
+  background-image: url("Images/Fondo.png");
+  margin: auto;
+  padding: 40px;
+  width: 50%;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+.modal-header {
+  width: 85%;
+  margin-left: 10%;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+.modal-body {
+  width: 75%;
+  height: 55%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: #fffae6;
+  box-shadow: 10px 10px 5px #b5b5b5;
+}
+
+#gameover {
+  padding: 10px;
+  text-align: center;
+  font-family: helvetica;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#gameover:hover {
+  color: #f95151;
+}
+
+#modal-form {
+  border: solid 3px #ee6969;
+  width: 60%;
+  height: 20%;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#fuser {
+  margin-left: 15px;
+  border-radius: 25px;
+  padding: 5px 10px;
+  border: none;
+}
+
+#fbutton,
+#regresarBtn,
+#facebookBtn {
+  margin-top: 30px;
+  background-color: #db3069;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  opacity: 0.8;
+  font-size: 14px;
+  padding: 5px 20px;
+}
+
+.modal-footer {
+  width: 80%;
+  margin-left: 20%;
+  margin-bottpom: -20px;
+}
+
+#regresarBtn {
+  font-size: 13px;
+  margin-left: 30px;
+  border: solid 2px white;
+}
+#facebookBtn {
+  font-size: 13px;
+  margin-left: 10%;
+  padding: 10px 25px;
+  border: solid 2px white;
+}
+
+/*--- Animacion ---*/
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+/*--- x boton ---*/
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+}
+
+.modal-footer {
+  padding: 2px 16px;
+  color: white;
 }

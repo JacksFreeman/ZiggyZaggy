@@ -1,365 +1,417 @@
 <html>
-<head>
-	
-	<title>2.3 Colisiones</title>
-	<script type="text/javascript" src="js/libs/jquery/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="js/libs/three/three.js"></script>
-	<script type="text/javascript" src="js/libs/three/MTLLoader.js"></script>
-	<script type="text/javascript" src="js/libs/three/OBJLoader.js"></script>
-	<script type="text/javascript">
-
-	var scene;
-	var camera;
-	var camera2;
-	var renderer;
-	var controls;
-	var objetosConColision = [];
-	var clock;
-	var deltaTime;	
-	var keys = {};
-	var ancla;
-	var ancla2;
-
-
-
-
-
-	var isWorldReady = [ false, false, false, false, false ];
-	$(document).ready(function() {
-
-		
-
-		rayCaster = new THREE.Raycaster();
-
-		setupScene();
-
-		ancla.misRayos = [
-			new THREE.Vector3(0, -1, 0),
-			new THREE.Vector3(0 ,1, 0)
-
-
-
-		];
-
-
-
-
-
-		
-
-		loadOBJWithMTL("assets/", "ball2.obj", "ball2.mtl", (object) => {
-			object.position.z = -10;
-			object.position.x = 0;
-			object.position.y = 5;
-
-			object.name = "lancha";
-
-			scene.add(object);
-			camera.lookAt(object.position);
-
-
-
-			object.add(camera);
-			//object.add(ancla);
-			isWorldReady[1] = true;
-		});
-
-
-
-
-
-		loadOBJWithMTL("assets/", "camino1.obj", "camino1.mtl", (object) => {
-			//object.scale.set(2.5,2.5,2.5);
-			object.position.z = -15;
-			object.position.x = -8;
-			object.position.y = 0;
-			object.rotation.y = THREE.Math.degToRad(45);
-
-
-
-			object.name = "camino";
-
-			scene.add(object);
-
-			objetosConColision.push(object);
-
-
-
-
-			isWorldReady[0] = true;
-		});
-
-		loadOBJWithMTL("assets/", "camino2.obj", "camino2.mtl", (object) => {
-			//object.scale.set(2.5,2.5,2.5);
-			object.position.z = -1585;
-			object.position.x = 18;
-			object.position.y = 0;
-			object.rotation.y = THREE.Math.degToRad(45);
-
-
-
-			object.name = "camino2";
-
-			scene.add(object);
-
-			objetosConColision.push(object);
-
-		});
-
-		loadOBJWithMTL("assets/", "camino3.obj", "camino3.mtl", (object) => {
-			//object.scale.set(2.5,2.5,2.5);
-			object.position.z = -800;
-			object.position.x = 18;
-			object.position.y = 0;
-			object.rotation.y = THREE.Math.degToRad(45);
-
-
-
-			object.name = "camino2";
-
-			scene.add(object);
-
-			objetosConColision.push(object);
-
-		});
-
-
-		loadOBJWithMTL("assets/", "City2.obj", "City2.mtl", (object) => {
-			object.scale.set(12,12,12);
-			object.position.z = -1250;
-			object.position.x = -8;
-			object.position.y = -120;
-
-	
-
-
-
-			object.name = "city1";
-
-			scene.add(object);
-
-			isWorldReady[2] = true;
-
-		
-
-
-		});
-
-		loadOBJWithMTL("assets/", "house.obj", "house.mtl", (object) => {
-			object.scale.set(20,20,20);
-			object.position.z = -370;
-			object.position.x = -8;
-			object.position.y = -220;
-			object.rotation.y = THREE.Math.degToRad(-45);
-		
-
-
-
-			object.name = "city2";
-
-			scene.add(object);
-
-			isWorldReady[3] = true;
-
-		
-
-
-		});
-
-		loadOBJWithMTL("assets/", "kameri.obj", "kameri.mtl", (object) => {
-			object.scale.set(7,7,7);
-			object.position.z = -2200;
-			object.position.x = -8;
-			object.position.y = -300;
-			object.rotation.y = THREE.Math.degToRad(-45);
-		
-
-
-
-			object.name = "city2";
-
-			scene.add(object);
-
-			isWorldReady[4] = true;
-
-		
-
-
-		});
-
-
-
-		render();
-
-		document.addEventListener('keydown', onKeyDown);
-		document.addEventListener('keyup', onKeyUp);		
-	});
-
-	function loadOBJWithMTL(path, objFile, mtlFile, onLoadCallback) {
-		var mtlLoader = new THREE.MTLLoader();
-		mtlLoader.setPath(path);
-		mtlLoader.load(mtlFile, (materials) => {
-			
-			var objLoader = new THREE.OBJLoader();
-			objLoader.setMaterials(materials);
-			objLoader.setPath(path);
-			objLoader.load(objFile, (object) => {
-				onLoadCallback(object);
-			});
-
-		});
-	}
-
-	function onKeyDown(event) {
-		keys[String.fromCharCode(event.keyCode)] = true;
-	}
-	function onKeyUp(event) {
-		keys[String.fromCharCode(event.keyCode)] = false;
-	}
-
-
-
-	var forward;
-	var forwardz;
-	var forwardy;
-	var stop = false;
-	forwardz = -10;
-	forwardy = -20;
-	var gameover = false;
-	var points = 0;
-	var final = false;
-
-	function render() {
-		
-		requestAnimationFrame(render);
-		
-
-		lancha = scene.getObjectByName("lancha", true);	
-
-		if(gameover == true && final == false){
-			var go = document.getElementById("gameover");
-			var titulo = document.createElement('h1');
-			var titletxt = document.createTextNode('GAME OVER');
-			var puntuacion = document.createElement('h2');
-			var titletxt2 = document.createTextNode('Puntuacion: '+ (points/10));
-	
-
-			go.appendChild(titulo)
-			titulo.appendChild(titletxt);
-			go.appendChild(puntuacion);
-			puntuacion.appendChild(titletxt2);
-
-			final = true;
-		}
-
-		
-		if (keys["A"]) {
-			forward = -10;
-			
-		} else if (keys["D"]) {
-			forward = 10;
-			
-		}
-
-
-		
-			
-
-			/*camera.translateX(forward * deltaTime);
+  <head>
+    <title>2.3 Colisiones</title>
+    <link rel="stylesheet" href="CanvasDesign.css" />
+    <script
+      type="text/javascript"
+      src="js/libs/jquery/jquery-2.1.4.min.js"
+    ></script>
+    <script type="text/javascript" src="js/libs/three/three.js"></script>
+    <script type="text/javascript" src="js/libs/three/MTLLoader.js"></script>
+    <script type="text/javascript" src="js/libs/three/OBJLoader.js"></script>
+    <script type="text/javascript">
+      var scene;
+      var camera;
+      var camera2;
+      var renderer;
+      var controls;
+      var objetosConColision = [];
+      var clock;
+      var deltaTime;
+      var keys = {};
+      var ancla;
+      var ancla2;
+
+      var isWorldReady = [false, false, false, false, false];
+      $(document).ready(function () {
+        rayCaster = new THREE.Raycaster();
+
+        setupScene();
+
+        ancla.misRayos = [
+          new THREE.Vector3(0, -1, 0),
+          new THREE.Vector3(0, 1, 0),
+        ];
+
+        loadOBJWithMTL("assets/", "ball2.obj", "ball2.mtl", (object) => {
+          object.position.z = -10;
+          object.position.x = 0;
+          object.position.y = 5;
+
+          object.name = "lancha";
+
+          scene.add(object);
+          camera.lookAt(object.position);
+
+          object.add(camera);
+          //object.add(ancla);
+          isWorldReady[1] = true;
+        });
+
+        loadOBJWithMTL("assets/", "camino1.obj", "camino1.mtl", (object) => {
+          //object.scale.set(2.5,2.5,2.5);
+          object.position.z = -15;
+          object.position.x = -8;
+          object.position.y = 0;
+          object.rotation.y = THREE.Math.degToRad(45);
+
+          object.castShadow = true; 
+          object.receiveShadow = true;
+
+          object.name = "camino";
+
+          scene.add(object);
+
+          objetosConColision.push(object);
+
+          isWorldReady[0] = true;
+        });
+
+        loadOBJWithMTL("assets/", "camino2.obj", "camino2.mtl", (object) => {
+          //object.scale.set(2.5,2.5,2.5);
+          object.position.z = -1585;
+          object.position.x = 18;
+          object.position.y = 0;
+          object.rotation.y = THREE.Math.degToRad(45);
+          object.castShadow = true; 
+          object.receiveShadow = true;
+
+          object.name = "camino2";
+
+          scene.add(object);
+
+          objetosConColision.push(object);
+        });
+
+        loadOBJWithMTL("assets/", "camino3.obj", "camino3.mtl", (object) => {
+          //object.scale.set(2.5,2.5,2.5);
+          object.position.z = -800;
+          object.position.x = 18;
+          object.position.y = 0;
+          object.rotation.y = THREE.Math.degToRad(45);
+          object.castShadow = true; 
+          object.receiveShadow = true;
+
+          object.name = "camino2";
+
+          scene.add(object);
+
+          objetosConColision.push(object);
+        });
+
+        loadOBJWithMTL("assets/", "City2.obj", "City2.mtl", (object) => {
+          object.scale.set(12, 12, 12);
+          object.position.z = -1250;
+          object.position.x = -8;
+          object.position.y = -120;
+
+          object.castShadow = true; 
+          object.receiveShadow = true;
+
+          object.name = "city1";
+
+          scene.add(object);
+
+          isWorldReady[2] = true;
+        });
+
+        loadOBJWithMTL("assets/", "house.obj", "house.mtl", (object) => {
+          object.scale.set(20, 20, 20);
+          object.position.z = -370;
+          object.position.x = -8;
+          object.position.y = -220;
+          object.rotation.y = THREE.Math.degToRad(-45);
+          object.castShadow = true; 
+          object.receiveShadow = true;
+
+          object.name = "city2";
+
+          scene.add(object);
+
+          isWorldReady[3] = true;
+        });
+
+        loadOBJWithMTL("assets/", "kameri.obj", "kameri.mtl", (object) => {
+          object.scale.set(7, 7, 7);
+          object.position.z = -2200;
+          object.position.x = -8;
+          object.position.y = -300;
+          object.rotation.y = THREE.Math.degToRad(-45);
+          object.castShadow = true; 
+          object.receiveShadow = true;
+
+          object.name = "city2";
+
+          scene.add(object);
+
+          isWorldReady[4] = true;
+        });
+
+        render();
+
+        document.addEventListener("keydown", onKeyDown);
+        document.addEventListener("keyup", onKeyUp);
+      });
+
+      function loadOBJWithMTL(path, objFile, mtlFile, onLoadCallback) {
+        var mtlLoader = new THREE.MTLLoader();
+        mtlLoader.setPath(path);
+        mtlLoader.load(mtlFile, (materials) => {
+          var objLoader = new THREE.OBJLoader();
+          objLoader.setMaterials(materials);
+          objLoader.setPath(path);
+          objLoader.load(objFile, (object) => {
+            onLoadCallback(object);
+          });
+        });
+      }
+
+      function onKeyDown(event) {
+        keys[String.fromCharCode(event.keyCode)] = true;
+      }
+      function onKeyUp(event) {
+        keys[String.fromCharCode(event.keyCode)] = false;
+      }
+
+      var forward;
+      var forwardz;
+      var forwardy;
+      var stop = false;
+      forwardz = -10;
+      forwardy = -20;
+      var gameover = false;
+      var points = 0;
+      var final = false;
+      var r = 0;
+      var g = 0;
+      var b = 0.65;
+
+      function render() {
+        requestAnimationFrame(render);
+
+        lancha = scene.getObjectByName("lancha", true);
+
+        if (gameover == true && final == false) {
+          var modal = document.getElementById("MyModal");
+          var span = document.getElementsByClassName("close")[0];
+
+          function openModal() {
+            modal.style.display = "block";
+          }
+
+          openModal();
+
+          span.onclick = function () {
+            modal.style.display = "none";
+          };
+
+          /*window.onclick = function(event) {
+				if(event.target == modal){
+					modal.style.display = "none";
+				}
+			}*/
+
+          var go = document.getElementById("gameover");
+          var titulo = document.createElement("h1");
+          //var titletxt = document.createTextNode('GAME OVER');
+          var puntuacion = document.createElement("h2");
+          var titletxt2 = document.createTextNode("Puntuacion: " + points / 10);
+
+          go.appendChild(titulo);
+          // titulo.appendChild(titletxt);
+          go.appendChild(puntuacion);
+          puntuacion.appendChild(titletxt2);
+
+          final = true;
+
+          // ventanita modal
+        }
+
+        if (keys["A"]) {
+          forward = -10;
+        } else if (keys["D"]) {
+          forward = 10;
+        }
+
+        /*camera.translateX(forward * deltaTime);
 			camera.translateZ(forwardz * deltaTime);*/
 
-		if (isWorldReady[0] && isWorldReady[1] && isWorldReady[2] && isWorldReady[3] && gameover == false && isWorldReady[4]) {
-			deltaTime = clock.getDelta();
-
-			points++;
-
-
-			
-
-			for (var i = 0; i < ancla.misRayos.length; i++) {
-					var rayo = ancla.misRayos[i];
-
-					rayCaster.set(lancha.position, rayo);
-
-					var colisiones = rayCaster.intersectObjects(objetosConColision,
-						true
-
-					);
-
-					if (colisiones.length > 0 && colisiones[0].distance < 1) {
-
-							lancha.translateX(forward * deltaTime);
-							lancha.translateZ(forwardz * deltaTime);
-							lancha.translateY(-forwardy * deltaTime);
-
-							console.log("Estamos colisionando con algo!");
-		
-					}
-					else {
-						console.log("YA NO!");
-						lancha.translateY(forwardy * deltaTime);
-						//lancha.translateY(forwardy * deltaTime);
-					}
-
-					if(lancha.position.y <= -20){
-						gameover = true;
-					}
-			}
-		}
-		
-	
-		renderer.render(scene, camera);
-	}
-
-	function setupScene() {		
-		var visibleSize = { width: window.innerWidth, height: window.innerHeight};
-		clock = new THREE.Clock();		
-		scene = new THREE.Scene();
-		camera = new THREE.PerspectiveCamera(75, visibleSize.width / visibleSize.height, 0.1, 600);
-		camera.position.z = 30;
-		camera.position.y = 30;
-
-		var geo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
-		var material = new THREE.MeshLambertMaterial({
-				color: new THREE.Color(1, 1, 1)
-			});
-		ancla = new THREE.Object3D();
+        if(points/10 >= 472 && r <=0.65 && g <= 0.65){
+          renderer.setClearColor(new THREE.Color(r, g, b));
+          r += 0.01;
+          g += 0.01;
 
 
 
-		renderer = new THREE.WebGLRenderer( {precision: "mediump" } );
-		renderer.setClearColor(new THREE.Color(0, 0, 0));
-		renderer.setPixelRatio(visibleSize.width / visibleSize.height);
-		renderer.setSize(visibleSize.width, visibleSize.height);
+        }else if(points/10 >= 472 && r <= 1 && g <= 1 && b <= 1){
 
-		var ambientLight = new THREE.AmbientLight(new THREE.Color(1, 1, 1), 1.0);
-		scene.add(ambientLight);
+          renderer.setClearColor(new THREE.Color(r, g, b));
+          r += 0.01;
+          g += 0.01;
+          b += 0.01;
 
-		var directionalLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 0.4);
-		directionalLight.position.set(0, 0, 1);
-		scene.add(directionalLight);
+        }else if(points/10 >= 994 && r >= 0 && g >= 0 && b >= 0){
 
-		var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
-		grid.position.y = -1;
-		// scene.add(grid);
+          renderer.setClearColor(new THREE.Color(r, g, b));
+          r -= 0.01;
+          g -= 0.01;
+          b -= 0.01;
 
-		$("#scene-section").append(renderer.domElement);
-	}
+        }
+
+        if (
+          isWorldReady[0] &&
+          isWorldReady[1] &&
+          isWorldReady[2] &&
+          isWorldReady[3] &&
+          gameover == false &&
+          isWorldReady[4]
+        ) {
+          deltaTime = clock.getDelta();
+
+          points++;
+
+          for (var i = 0; i < ancla.misRayos.length; i++) {
+            var rayo = ancla.misRayos[i];
+
+            rayCaster.set(lancha.position, rayo);
+
+            var colisiones = rayCaster.intersectObjects(
+              objetosConColision,
+              true
+            );
+
+            if (colisiones.length > 0 && colisiones[0].distance < 1) {
+              lancha.translateX(forward * deltaTime);
+              lancha.translateZ(forwardz * deltaTime);
+              lancha.translateY(-forwardy * deltaTime);
+
+              console.log("Estamos colisionando con algo!");
+            } else {
+              console.log("YA NO!");
+              lancha.translateY(forwardy * deltaTime);
+              //lancha.translateY(forwardy * deltaTime);
+            }
+
+            if (lancha.position.y <= -20) {
+              gameover = true;
+            }
+          }
+        }
+
+        renderer.render(scene, camera);
+      }
+
+      function setupScene() {
+        var visibleSize = {
+          width: window.innerWidth,
+          height: window.innerHeight,
+        };
+        clock = new THREE.Clock();
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(
+          75,
+          visibleSize.width / visibleSize.height,
+          0.1,
+          600
+        );
+        camera.position.z = 30;
+        camera.position.y = 30;
+
+        var geo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+        var material = new THREE.MeshLambertMaterial({
+          color: new THREE.Color(1, 1, 1),
+        });
+        ancla = new THREE.Object3D();
+
+        renderer = new THREE.WebGLRenderer({ precision: "mediump" });
+        renderer.setClearColor(new THREE.Color(0, 0, 0.65));
+        renderer.setPixelRatio(visibleSize.width / visibleSize.height);
+        renderer.setSize(visibleSize.width, visibleSize.height);
+
+        var ambientLight = new THREE.AmbientLight(
+          new THREE.Color(1, 1, 1),
+          0.4
+        );
+        scene.add(ambientLight);
+
+        var directionalLight = new THREE.DirectionalLight(
+          new THREE.Color(1, 1, 1),
+          0.9
+        );
+
+        directionalLight.castShadow = true;
+        directionalLight.position.set(2, 1, 0);
 
 
-	</script>
-</head>
+        directionalLight.shadow.mapSize.width = 1024; // default
+        directionalLight.shadow.mapSize.height = 1024; // default
+        directionalLight.shadow.camera.near = 0.5; // default
+        directionalLight.shadow.camera.far = 4000; // default
 
-<body>
+        scene.add(directionalLight);
 
+        var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
+        grid.position.y = -1;
+        // scene.add(grid);
 
-	<div id="gameover"></div>
+        $("#scene-section").append(renderer.domElement);
+      }
+    </script>
+  </head>
 
-	<audio src="assets/fondo.mp3" type="audio/mpeg" id="musica" autoplay="autoplay"></audio>
-	<div id="scene-section"></div>
-	
+  <body>
+    <audio
+      src="assets/fondo.mp3"
+      type="audio/mpeg"
+      id="musica"
+      autoplay="autoplay"
+    ></audio>
+    <div id="scene-section"></div>
 
-	
+    <!-- ventana -->
+    <div id="MyModal" class="modal">
+      <!-- contenido -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
 
-</body>
+        <div class="modal-body">
+          <div class="modal-header">
+            <div class="column-header">
+              <img class="estrella" src="Images/icono.png" />
+            </div>
+            <div class="column-header">
+              <img id="modal-header" src="Images/GameOver.png" />
+            </div>
+            <div class="column-header">
+              <img class="estrella" src="Images/icono.png" />
+            </div>
+          </div>
+          <br /><br /><br /><br />
+          <div id="gameover"></div>
+          <!-- form para poner tu nombresito -->
+          <form id="modal-form">
+            <label for="fuser">Usuario:</label>
+            <input type="text" name="fuser" id="fuser" />
+            <br />
+            <input
+              type="submit"
+              id="fbutton"
+              name="fbutton"
+              value="Enviar puntuacion"
+            />
+          </form>
+
+          <div class="modal-footer">
+            <div class="column">
+              <button id="regresarBtn">Volver al menu</button>
+            </div>
+            <div class="column">
+              <button id="facebookBtn">Compartir en Facebook</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
