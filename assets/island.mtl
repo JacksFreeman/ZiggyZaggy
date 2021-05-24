@@ -1,0 +1,48 @@
+newmtl island:lambert2SG
+illum 4
+Kd 0.62 0.39 0.09
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl island:lambert3SG
+illum 4
+Kd 1.00 0.81 0.54
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl island:lambert4SG
+illum 4
+Kd 0.09 0.58 0.11
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl island:lambert5SG
+illum 4
+Kd 0.20 0.13 0.03
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl island:lambert6SG
+illum 4
+Kd 0.92 0.80 0.66
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl island:lambert8SG
+illum 4
+Kd 0.08 0.42 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl island:lambert9SG
+illum 4
+Kd 0.14 0.41 0.07
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl island:lambert12SG
+illum 4
+Kd 0.32 0.32 0.32
+Ka 1.00 1.00 1.00
+Tf 1.00 1.00 1.00
+Ni 1.00
