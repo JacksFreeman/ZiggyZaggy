@@ -15,6 +15,9 @@
 		}
 	</style>
 
+    <link rel="stylesheet" href="CanvasDesign.css" />
+
+
 	<script type="text/javascript" src="js/libs/jquery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript" src="js/libs/three/three.js"></script>
 	<script type="text/javascript" src="js/libs/three/MTLLoader.js"></script>
@@ -285,15 +288,28 @@
 		}
 
 		if(gameover == true && final == false){
+			var modal = document.getElementById("MyModal");
+	        var span = document.getElementsByClassName("close")[0];
+
+	        function openModal() {
+	          modal.style.display = "block";
+	        }
+
+	        openModal();
+
+	        span.onclick = function () {
+	          modal.style.display = "none";
+	        };
+
 			var go = document.getElementById("gameover");
 			var titulo = document.createElement('h1');
-			var titletxt = document.createTextNode('GAME OVER');
+			//var titletxt = document.createTextNode('GAME OVER');
 			var puntuacion = document.createElement('h2');
 			var titletxt2 = document.createTextNode('Puntuacion: '+ (points/10));
 	
 
 			go.appendChild(titulo)
-			titulo.appendChild(titletxt);
+			//titulo.appendChild(titletxt);
 			go.appendChild(puntuacion);
 			puntuacion.appendChild(titletxt2);
 
@@ -303,13 +319,13 @@
 		if(gameover2 == true && final2 == false){
 			var go = document.getElementById("gameover");
 			var titulo2 = document.createElement('h1');
-			var titletxt2 = document.createTextNode('GAME OVER');
+			//var titletxt2 = document.createTextNode('GAME OVER');
 			var puntuacion2 = document.createElement('h2');
 			var titletxt22 = document.createTextNode('Puntuacion2: '+ (points2/10));
 	
 
 			go.appendChild(titulo2)
-			titulo2.appendChild(titletxt2);
+			//titulo2.appendChild(titletxt2);
 			go.appendChild(puntuacion2);
 			puntuacion2.appendChild(titletxt22);
 
@@ -461,7 +477,6 @@
 </head>
 
 <body>
-	<div id="gameover"></div>
 
 	<audio src="assets/fondo.mp3" type="audio/mpeg" id="musica" autoplay="autoplay"></audio>
 	<div style="display: flex; height: 100px;">
@@ -469,6 +484,46 @@
 		<div style="flex-grow: 1;" id="scene-section-2"></div>
 	</div>
 
+	<!-- ventana -->
+    <div id="MyModal" class="modal">
+      <!-- contenido -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <div class="modal-body">
+          <div class="modal-header">
+            <div class="column-header">
+              <img class="estrella" src="Images/icono.png" />
+            </div>
+            <div class="column-header">
+              <img id="modal-header" src="Images/GameOver.png" />
+            </div>
+            <div class="column-header">
+              <img class="estrella" src="Images/icono.png" />
+            </div>
+          </div>
+          <br /><br /><br /><br />
+          <div id="gameover"></div>
+          <!-- form para poner tu nombresito -->
+
+          <div class="modal-footer">
+            <div class="column">
+              <a href="Index.html">
+                <button id="regresarBtn">Volver al menu</button>
+              </a>
+            </div>
+            <div class="column">
+              <a href="Solo.html">
+                <button id="jugarBtn">Jugar de nuevo</button>
+              </a>
+            </div>
+            <div class="column">
+              <button id="facebookBtn">Compartir en Facebook</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </body>
 </html>
