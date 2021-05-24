@@ -259,7 +259,12 @@
 	var gameover2 = false;
 	var gameoverF = false;
 	var points2 = 0;
+	var pointsx = 0;
 	var final2 = false;
+	var r = 0;
+	var g = 0;
+	var b = 0.65;
+
 
 	function render() {
 		requestAnimationFrame(render);
@@ -282,6 +287,35 @@
 			forward2 = -10;
 		} else if (keys["L"]) {
 			forward2 = 10;
+		}
+
+		if(pointsx/10 <= 472){
+			renderers[0].setClearColor(new THREE.Color(r, g, 0.65));
+			renderers[1].setClearColor(new THREE.Color(r, g, 0.65));
+		}else if(pointsx/10 >= 472 && r <=0.65 && g <= 0.65){
+		  renderers[0].setClearColor(new THREE.Color(r, g, b));
+		  renderers[1].setClearColor(new THREE.Color(r, g, b));
+		  r += 0.01;
+		  g += 0.01;
+
+
+
+		}else if(pointsx/10 >= 472 && r <= 1 && g <= 1 && b <= 1){
+
+		  renderers[0].setClearColor(new THREE.Color(r, g, b));
+		  renderers[1].setClearColor(new THREE.Color(r, g, b));
+		  r += 0.01;
+		  g += 0.01;
+		  b += 0.01;
+
+		}else if(pointsx/10 >= 994 && r >= 0 && g >= 0 && b >= 0){
+
+		  renderers[0].rsetClearColor(new THREE.Color(r, g, b));
+		  renderers[1].setClearColor(new THREE.Color(r, g, b));
+		  r -= 0.01;
+		  g -= 0.01;
+		  b -= 0.01;
+
 		}
 
 		if(gameover == true && final == false){
@@ -326,6 +360,7 @@
 
 			points++;
 			points2++;
+			pointsx++;
 						
 
 			for (var i = 0; i < ancla.misRayos.length; i++) {
@@ -400,10 +435,10 @@
 	}
 
 		var renderers = [];
-	function crearRenders(color) {
+	function crearRenders(r, g, b) {
 
 		renderer = new THREE.WebGLRenderer( {precision: "mediump" } );
-		renderer.setClearColor(color);
+		renderer.setClearColor(r, g, b);
 		renderer.setPixelRatio((visibleSize.width) / (visibleSize.height));
 		renderer.setSize(visibleSize.width, visibleSize.height);
 
@@ -413,7 +448,7 @@
 
 	function crearCamara() {
 
-		var camera = new THREE.PerspectiveCamera(75, visibleSize.width / visibleSize.height, 0.1, 400);
+		var camera = new THREE.PerspectiveCamera(75, visibleSize.width / visibleSize.height, 0.1, 600);
 		camera.position.z = 30;
 		camera.position.y = 30;
 
@@ -430,8 +465,8 @@
 		crearCamara();
 		
 
-		crearRenders(new THREE.Color(0, 0, 0));
-		crearRenders(new THREE.Color(0, 0, 0));
+		crearRenders(0, 0, 0.65);
+		crearRenders(0, 0, 0.65);
 
 		var geo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
 		var material = new THREE.MeshLambertMaterial({
@@ -441,11 +476,20 @@
 		ancla2 = new THREE.Object3D();
 
 
-		var ambientLight = new THREE.AmbientLight(new THREE.Color(1, 1, 1), 1.0);
+		var ambientLight = new THREE.AmbientLight(new THREE.Color(1, 1, 1), 0.4);
 		scene.add(ambientLight);
 
-		var directionalLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 0), 0.4);
+		var directionalLight = new THREE.DirectionalLight(new THREE.Color(1, 1, 1), 0.9);
 		directionalLight.position.set(0, 0, 1);
+
+		directionalLight.castShadow = true;
+		directionalLight.position.set(2, 1, 0);
+
+
+		directionalLight.shadow.mapSize.width = 1024; // default
+		directionalLight.shadow.mapSize.height = 1024; // default
+		directionalLight.shadow.camera.near = 0.5; // default
+		directionalLight.shadow.camera.far = 4000; // default
 		scene.add(directionalLight);
 
 		var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
