@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <!-- Configuracion rapida de facebook api -->
+    <!-- https://developers.facebook.com/docs/javascript/quickstart -->
+    <title>3.0 Facebook</title>
+    <link rel="stylesheet" type="text/css" href="css/estilos.css" />
+    <script
+      type="text/javascript"
+      src="js/libs/jquery/jquery-2.1.4.min.js"
+    ></script>
+    <script type="text/javascript" src="js/mifacebook.js"></script>
+    <script type="text/javascript">
+      function shareFB() {
+        var score = $("#txtScore").val();
+        shareScore(score);
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="back">
+      <img src="assets/background.jpeg" />
+      <div class="black"></div>
+    </div>
+    <div class="controls">
+      <input
+        id="txtScore"
+        type="number"
+        name=""
+        placeholder="Escribe la puntuacion"
+      />
+      <button onclick="shareFB();">Compartir en Facebook</button>
+      <!-- Boton de Like y Share -->
+      <!--...-->
+      <br />
+    </div>
+  </body>
+</html>

@@ -9,6 +9,7 @@
     <script type="text/javascript" src="js/libs/three/three.js"></script>
     <script type="text/javascript" src="js/libs/three/MTLLoader.js"></script>
     <script type="text/javascript" src="js/libs/three/OBJLoader.js"></script>
+    <script type="text/javascript" src="js/libs/mifacebook.js"></script>
     <script type="text/javascript">
       var scene;
       var camera;
@@ -21,6 +22,8 @@
       var keys = {};
       var ancla;
       var ancla2;
+      var facebookPuntuaction;
+      let starGeo, stars;
 
       var isWorldReady = [false, false, false, false, false];
       $(document).ready(function () {
@@ -55,7 +58,7 @@
           object.position.y = 0;
           object.rotation.y = THREE.Math.degToRad(45);
 
-          object.castShadow = true; 
+          object.castShadow = true;
           object.receiveShadow = true;
 
           object.name = "camino";
@@ -73,7 +76,7 @@
           object.position.x = 18;
           object.position.y = 0;
           object.rotation.y = THREE.Math.degToRad(45);
-          object.castShadow = true; 
+          object.castShadow = true;
           object.receiveShadow = true;
 
           object.name = "camino2";
@@ -89,7 +92,7 @@
           object.position.x = 18;
           object.position.y = 0;
           object.rotation.y = THREE.Math.degToRad(45);
-          object.castShadow = true; 
+          object.castShadow = true;
           object.receiveShadow = true;
 
           object.name = "camino2";
@@ -105,7 +108,7 @@
           object.position.x = -8;
           object.position.y = -120;
 
-          object.castShadow = true; 
+          object.castShadow = true;
           object.receiveShadow = true;
 
           object.name = "city1";
@@ -115,13 +118,13 @@
           isWorldReady[2] = true;
         });
 
-        loadOBJWithMTL("assets/", "house.obj", "house.mtl", (object) => {
+        loadOBJWithMTL("assets/", "island.obj", "island.mtl", (object) => {
           object.scale.set(20, 20, 20);
           object.position.z = -370;
           object.position.x = -8;
           object.position.y = -220;
           object.rotation.y = THREE.Math.degToRad(-45);
-          object.castShadow = true; 
+          object.castShadow = true;
           object.receiveShadow = true;
 
           object.name = "city2";
@@ -137,7 +140,7 @@
           object.position.x = -8;
           object.position.y = -300;
           object.rotation.y = THREE.Math.degToRad(-45);
-          object.castShadow = true; 
+          object.castShadow = true;
           object.receiveShadow = true;
 
           object.name = "city2";
@@ -189,6 +192,17 @@
       function render() {
         requestAnimationFrame(render);
 
+        starGeo.vertices.forEach((p) => {
+          p.velocity += p.acceleration;
+          p.y -= p.velocity;
+
+          if (p.y < -200) {
+            p.y = 200;
+            p.velocity = 0;
+          }
+        });
+        starGeo.verticesNeedUpdate = true;
+
         lancha = scene.getObjectByName("lancha", true);
 
         if (gameover == true && final == false) {
@@ -206,10 +220,10 @@
           };
 
           /*window.onclick = function(event) {
-				if(event.target == modal){
-					modal.style.display = "none";
-				}
-			}*/
+      	if(event.target == modal){
+      		modal.style.display = "none";
+      	}
+      }*/
 
           var go = document.getElementById("gameover");
           var titulo = document.createElement("h1");
@@ -221,6 +235,7 @@
           // titulo.appendChild(titletxt);
           go.appendChild(puntuacion);
           puntuacion.appendChild(titletxt2);
+          facebookPuntuaction = points / 10;
 
           final = true;
 
@@ -234,29 +249,22 @@
         }
 
         /*camera.translateX(forward * deltaTime);
-			camera.translateZ(forwardz * deltaTime);*/
+      camera.translateZ(forwardz * deltaTime);*/
 
-        if(points/10 >= 472 && r <=0.65 && g <= 0.65){
+        if (points / 10 >= 472 && r <= 0.65 && g <= 0.65) {
           renderer.setClearColor(new THREE.Color(r, g, b));
           r += 0.01;
           g += 0.01;
-
-
-
-        }else if(points/10 >= 472 && r <= 1 && g <= 1 && b <= 1){
-
+        } else if (points / 10 >= 472 && r <= 1 && g <= 1 && b <= 1) {
           renderer.setClearColor(new THREE.Color(r, g, b));
           r += 0.01;
           g += 0.01;
           b += 0.01;
-
-        }else if(points/10 >= 994 && r >= 0 && g >= 0 && b >= 0){
-
+        } else if (points / 10 >= 994 && r >= 0 && g >= 0 && b >= 0) {
           renderer.setClearColor(new THREE.Color(r, g, b));
           r -= 0.01;
           g -= 0.01;
           b -= 0.01;
-
         }
 
         if (
@@ -298,7 +306,6 @@
             }
           }
         }
-
         renderer.render(scene, camera);
       }
 
@@ -329,6 +336,31 @@
         renderer.setPixelRatio(visibleSize.width / visibleSize.height);
         renderer.setSize(visibleSize.width, visibleSize.height);
 
+        // --------------------------------------------------------------
+
+        starGeo = new THREE.Geometry();
+        for (let i = 0; i < 6000; i++) {
+          let star = new THREE.Vector3(
+            Math.random() * 600 - 300,
+            Math.random() * 600 - 300,
+            Math.random() * 600 - 300
+          );
+          star.velocity = 0;
+          star.acceleration = 0.0002;
+          starGeo.vertices.push(star);
+        }
+
+        let sprite = new THREE.TextureLoader().load("Images/star.png");
+        let starMaterial = new THREE.PointsMaterial({
+          color: 0xaaaaaa,
+          size: 0.7,
+          map: sprite,
+        });
+
+        stars = new THREE.Points(starGeo, starMaterial);
+        scene.add(stars);
+
+        // --------------------------------------------------------------
         var ambientLight = new THREE.AmbientLight(
           new THREE.Color(1, 1, 1),
           0.4
@@ -339,23 +371,28 @@
           new THREE.Color(1, 1, 1),
           0.9
         );
+        directionalLight.position.set(0, 0, 1);
 
         directionalLight.castShadow = true;
         directionalLight.position.set(2, 1, 0);
-
 
         directionalLight.shadow.mapSize.width = 1024; // default
         directionalLight.shadow.mapSize.height = 1024; // default
         directionalLight.shadow.camera.near = 0.5; // default
         directionalLight.shadow.camera.far = 4000; // default
-
         scene.add(directionalLight);
 
         var grid = new THREE.GridHelper(50, 10, 0xffffff, 0xffffff);
         grid.position.y = -1;
         // scene.add(grid);
 
+        render();
         $("#scene-section").append(renderer.domElement);
+      }
+
+      function shareFB() {
+        var score = facebookPuntuaction;
+        shareScore(score);
       }
     </script>
   </head>
@@ -414,7 +451,9 @@
               </a>
             </div>
             <div class="column">
-              <button id="facebookBtn">Compartir en Facebook</button>
+              <button onclick="shareFB();" id="facebookBtn">
+                Compartir en Facebook
+              </button>
             </div>
           </div>
         </div>
