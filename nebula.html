@@ -8,12 +8,12 @@
   </head>
   <body>
     <script type="text/javascript" src="js/libs/three/three.js"></script>
+    <script src="three.min.js"></script>
     <script>
       let scene,
         camera,
         renderer,
-        cloudParticles = [],
-        composer;
+        cloudParticles = [];
       function init() {
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(
@@ -26,8 +26,9 @@
         camera.rotation.x = 1.16;
         camera.rotation.y = -0.12;
         camera.rotation.z = 0.27;
-
+        let ambient = new THREE.AmbientLight(0x555555);
         scene.add(ambient);
+
         let directionalLight = new THREE.DirectionalLight(0xff8c19);
         directionalLight.position.set(0, 0, 1);
         scene.add(directionalLight);
@@ -49,12 +50,13 @@
         document.body.appendChild(renderer.domElement);
 
         let loader = new THREE.TextureLoader();
-        loader.load("Images/smoke-1.png", function (texture) {
+        loader.load("Images/smoke.png", function (texture) {
           cloudGeo = new THREE.PlaneBufferGeometry(500, 500);
           cloudMaterial = new THREE.MeshLambertMaterial({
             map: texture,
             transparent: true,
           });
+
           for (let p = 0; p < 50; p++) {
             let cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
             cloud.position.set(
