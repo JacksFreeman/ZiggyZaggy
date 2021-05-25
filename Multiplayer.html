@@ -22,35 +22,6 @@
     <script type="text/javascript" src="js/libs/three/three.js"></script>
     <script type="text/javascript" src="js/libs/three/MTLLoader.js"></script>
     <script type="text/javascript" src="js/libs/three/OBJLoader.js"></script>
-    <script type="text/javascript" src="js/libs/mifacebook.js"></script>
-    <script id="vertexShader" type="x-shader/x-vertex">
-      varying vec2 vUv;
-      void main()
-      {
-              vUv = uv;
-              gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-      }
-    </script>
-    <script id="fragmentShader" type="x-shader/x-vertex">
-      uniform sampler2D baseTexture;
-      uniform float baseSpeed;
-      uniform sampler2D noiseTexture;
-      uniform float noiseScale;
-      uniform float alpha;
-      uniform float time;
-
-      varying vec2 vUv;
-      void main()
-      {
-          vec2 uvTimeShift = vUv + vec2( -0.7, 1.5 ) * time * baseSpeed;
-          vec4 noiseGeneratorTimeShift = texture2D( noiseTexture, uvTimeShift );
-          vec2 uvNoiseTimeShift = vUv + noiseScale * vec2( noiseGeneratorTimeShift.r, noiseGeneratorTimeShift.b );
-          vec4 baseColor = texture2D( baseTexture, uvNoiseTimeShift );
-
-          baseColor.a = alpha;
-          gl_FragColor = baseColor;
-      }
-    </script>
     <script type="text/javascript">
       var scene;
       var controls;
@@ -65,25 +36,6 @@
 
       var visibleSize;
 
-      // AGUA
-
-      var noiseTexture = new THREE.ImageUtils.loadTexture("Images/cloud.png");
-      noiseTexture.wrapS = noiseTexture.wrapT = THREE.RepeatWrapping;
-
-      var lavaTexture = new THREE.ImageUtils.loadTexture("Images/water.jpg");
-      lavaTexture.wrapS = lavaTexture.wrapT = THREE.RepeatWrapping;
-
-      var customUniforms = {
-        baseTexture: { type: "t", value: lavaTexture },
-        baseSpeed: { type: "f", value: 0.1 },
-        noiseTexture: { type: "t", value: noiseTexture },
-        noiseScale: { type: "f", value: 0.5337 },
-        alpha: { type: "f", value: 0.8 },
-        time: { type: "f", value: 1.0 },
-      };
-
-      // -------------------------
-
       var isWorldReady = [false, false, false, false, false];
       $(document).ready(function () {
         visibleSize = {
@@ -93,25 +45,6 @@
         rayCaster = new THREE.Raycaster();
 
         setupScene();
-
-        // ------------------------------
-
-        var customMaterial = new THREE.ShaderMaterial({
-          uniforms: customUniforms,
-          vertexShader: document.getElementById("vertexShader").textContent,
-          fragmentShader: document.getElementById("fragmentShader").textContent,
-        });
-
-        customMaterial.opacity = 0.9;
-        customMaterial.transparent = true;
-        customMaterial.side = THREE.DoubleSide;
-
-        var flatGeometry = new THREE.BoxGeometry(1000, 0, 500);
-        var surface = new THREE.Mesh(flatGeometry, customMaterial);
-        surface.position.set(0, -2, 0);
-        // scene.add(surface);
-
-        // ------------------------------
 
         ancla.misRayos = [
           new THREE.Vector3(0, -1, 0),
@@ -199,7 +132,7 @@
 
         loadOBJWithMTL("assets/", "City2.obj", "City2.mtl", (object) => {
           object.scale.set(12, 12, 12);
-          object.position.z = -270;
+          object.position.z = -1250;
           object.position.x = -8;
           object.position.y = -120;
 
@@ -212,14 +145,12 @@
 
         loadOBJWithMTL("assets/", "island.obj", "island.mtl", (object) => {
           object.scale.set(20, 20, 20);
-          object.position.z = -1250;
+          object.position.z = -370;
           object.position.x = -8;
           object.position.y = -220;
           object.rotation.y = THREE.Math.degToRad(-45);
 
           object.name = "city2";
-
-          object.children[0].material.materials[1] = customMaterial;
 
           scene.add(object);
 
@@ -303,23 +234,25 @@
           forward2 = 10;
         }
 
-        if (pointsx / 20 >= 472) {
+        if (pointsx / 10 <= 472) {
           renderers[0].setClearColor(new THREE.Color(r, g, 0.65));
           renderers[1].setClearColor(new THREE.Color(r, g, 0.65));
-        } else if (points / 20 >= 472 && r >= 0.65 && g >= 0.65 && b >= 0.65) {
+        } else if (pointsx / 10 >= 472 && r <= 0.65 && g <= 0.65) {
           renderers[0].setClearColor(new THREE.Color(r, g, b));
           renderers[1].setClearColor(new THREE.Color(r, g, b));
-          r -= 0.01;
-          g -= 0.01;
-          b -= 0.01;
-        } else if (points / 20 >= 472 && r >= 0 && g >= 0) {
+          r += 0.01;
+          g += 0.01;
+        } else if (pointsx / 10 >= 472 && r <= 1 && g <= 1 && b <= 1) {
           renderers[0].setClearColor(new THREE.Color(r, g, b));
           renderers[1].setClearColor(new THREE.Color(r, g, b));
-          r -= 0.01;
-          g -= 0.01;
-        } else if (points / 20 >= 994 && b >= 0) {
+          r += 0.01;
+          g += 0.01;
+          b += 0.01;
+        } else if (pointsx / 10 >= 994 && r >= 0 && g >= 0 && b >= 0) {
           renderers[0].rsetClearColor(new THREE.Color(r, g, b));
           renderers[1].setClearColor(new THREE.Color(r, g, b));
+          r -= 0.01;
+          g -= 0.01;
           b -= 0.01;
         }
 
@@ -413,8 +346,6 @@
             }
           }
 
-          customUniforms.time.value += deltaTime;
-
           ///////////////////////////////////////////////////////////////////////////////////////////////////
 
           for (var i = 0; i < ancla2.misRayos.length; i++) {
@@ -453,7 +384,7 @@
       var renderers = [];
       function crearRenders(r, g, b) {
         renderer = new THREE.WebGLRenderer({ precision: "mediump" });
-        renderer.setClearColor(new THREE.Color(1, 1, 1));
+        renderer.setClearColor(r, g, b);
         renderer.setPixelRatio(visibleSize.width / visibleSize.height);
         renderer.setSize(visibleSize.width, visibleSize.height);
 
@@ -583,7 +514,7 @@
 
           <div class="modal-footer">
             <div class="column">
-              <a href="index.html">
+              <a href="Index.html">
                 <button id="regresarBtn">Volver al menu</button>
               </a>
             </div>

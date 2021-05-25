@@ -28,7 +28,7 @@ var iconImage = new Image();
 
 //Carga de archivos
 bgImage.src = "Images/Fondo3.png";
-logoImage.src = "Images/logoS.png";
+logoImage.src = "Images/LogoS.png";
 playImage.src = "Images/SoloS.png";
 MultiImage.src = "Images/MultijugadorS.png";
 instrucImage.src = "Images/InstruccionesS.png";
@@ -54,7 +54,7 @@ playImage.onload = function () {
 };
 instrucImage.onload = function () {
   context.drawImage(MultiImage, buttonX[1], buttonY[1]);
-};
+}
 instrucImage.onload = function () {
   context.drawImage(instrucImage, buttonX[2], buttonY[2]);
 };
@@ -225,7 +225,7 @@ function solo() {
     canvas.addEventListener("mousemove", checkPos);
     canvas.addEventListener("mouseup", checkClick);
 
-    location.href = "Solo.php";
+    location.href = "Solo.html";
   }
 }
 
